@@ -11,7 +11,7 @@ void setup()
     SwervePinInit();
 
     Serial.println("the initialization is over");
-    delay(500);
+    delay(500); 
 }
 
 void loop()
@@ -25,6 +25,6 @@ void loop()
     }else{
         SwerveForward(200);
     }
-    
+
     delay(50);
 }
