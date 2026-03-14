@@ -2,7 +2,8 @@
 #include "monitor.h"
 #include <esp32-hal-gpio.h>
 
-float MonitorValue[4] = {0, 0, 0, 0};
+float MonitorValue[4]={0,0,0,0};
+
 /**
  * @brief 监控模块引脚初始化
 */

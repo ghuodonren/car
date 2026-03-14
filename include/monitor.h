@@ -2,7 +2,7 @@
 #define MONITOR_H
 
 // 声明监控模块获取的值
-extern float MonitorValue[4]={0,0,0,0};
+extern float MonitorValue[4];
 
 // 引脚初始化
 void MonitorPinInit();
