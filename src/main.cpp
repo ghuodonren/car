@@ -2,25 +2,22 @@
 #include "monitor.h"
 #include "swerve.h"
 
+/**
+ * @brief 检查是否脱轨
+*/
 bool isLost()
 {
-    for(int i = 0; i < 4; i++){
-        if(MonitorValue[i] > 0.5){
-            return false;
-        }
-    }
-    return true;
+    
 }
 
 void setup()
 {
     Serial.begin(115200);
-    Serial.println("the car is begining");
 
     MonitorPinInit();
     SwervePinInit();
 
-    Serial.println("the initialization is over");
+    Serial.println("初始化完成");
     delay(500); 
 }
 
@@ -29,35 +26,30 @@ void loop()
     MonitorSensor();
 
     if(isLost()){
-        Serial.println("the car is lost");
+        Serial.println("小车已脱轨");
 
-        SwerveReverse(100);
-        delay(300);
+        SwerveReverse(150);
+        delay(100);
 
         int searchTime = 0;
         bool foundLine = false;
 
-        while(searchTime < 2000){
+        while(searchTime < 600){
             MonitorSensor();
 
             if(!isLost()){
                 foundLine = true;
-                Serial.println("the car is coming back");
+                Serial.println("小车回到轨道");
                 break;
             }
             SwerveLeftTurn(150);
-            delay(20);
-            searchTime += 20;
+            delay(5);
+            searchTime += 5;
         }
         
-        if(foundLine){
+        if(!foundLine){
             SwerveForward(0);
-            delay(200);
-            return;
-        }else{
-            Serial.println("the car has not yet found the black line");
-            SwerveForward(0);
-            delay(2000);
+            delay(100);
             return;
         }
     }

@@ -33,7 +33,7 @@ void SwervePinInit()
 */
 void setMotor(int pwmChannel, int dirPin1, int dirPin2, int speed)
 {
-    speed = constrain(speed, 0, 255);
+    speed = constrain(speed, 0, 255); //限制speed的最大值
 
     if(speed == 0){
         ledcWrite(pwmChannel, 0);
@@ -46,9 +46,7 @@ void setMotor(int pwmChannel, int dirPin1, int dirPin2, int speed)
     }
 }
 
-/**
- * @brief 转向模块函数
-*/
+
 void SwerveRightTurn(int speed)
 {
     setMotor(PWM_CHANNEL_A, SwervePin[2], SwervePin[3], speed);

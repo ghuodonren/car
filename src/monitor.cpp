@@ -21,6 +21,6 @@ void MonitorSensor()
 {
     for(int i = 0; i < 4; i++){
         int raw = digitalRead(MonitorPin[i]);
-        MonitorValue[i] = (raw == LOW)?(1.0):(0.0);
+        MonitorValue[i] = !raw;
     }
 }
