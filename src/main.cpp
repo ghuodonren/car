@@ -53,12 +53,12 @@ void loop()
         if(foundLine){
             SwerveForward(0);
             delay(200);
-            continue;
+            return;
         }else{
-            Serial.println("the car has not yet found the black line")
+            Serial.println("the car has not yet found the black line");
             SwerveForward(0);
             delay(2000);
-            continue;
+            return;
         }
     }
 
