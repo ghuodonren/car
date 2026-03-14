@@ -31,7 +31,7 @@ void loop()
     if(isLost()){
         Serial.println("the car is lost");
 
-        SwerveForward(100);
+        SwerveReverse(100);
         delay(300);
 
         int searchTime = 0;
