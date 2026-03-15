@@ -11,6 +11,13 @@ const int MonitorPin[4] = {3, 6, 7, 12};
 /**
  * @brief 转向模块引脚定义
 */
-const int SwervePin[6] = {18, 19, 4, 5, 11, 13};
+const int SwervePin[6] = {
+    18, //PWMA
+    19, //PWMB
+    4,  //AIN1
+    5,  //AIN2
+    11, //BIN1
+    13  //BIN2
+};
 
 #endif

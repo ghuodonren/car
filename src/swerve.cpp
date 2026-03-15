@@ -3,10 +3,10 @@
 #include <esp32-hal-gpio.h>
 #include <Arduino.h>
 
-const int PWM_CHANNEL_A = 0;
-const int PWM_CHANNEL_B = 1;
-const int PWM_FREQ = 5000;
-const int PWM_RESOLUTION = 8;
+const int PWM_CHANNEL_A = 0; //PWMA的通道
+const int PWM_CHANNEL_B = 1; //PWMB的通道
+const int PWM_FREQ = 5000;   //PWM的频率
+const int PWM_RESOLUTION = 8;//PWM的8位分辨率
 
 
 /**
@@ -14,11 +14,11 @@ const int PWM_RESOLUTION = 8;
 */
 void SwervePinInit()
 {
-    ledcSetup(PWM_CHANNEL_A, PWM_FREQ, PWM_RESOLUTION);
-    ledcSetup(PWM_CHANNEL_B, PWM_FREQ, PWM_RESOLUTION);
+    ledcSetup(PWM_CHANNEL_A, PWM_FREQ, PWM_RESOLUTION); //初始化PWMA
+    ledcSetup(PWM_CHANNEL_B, PWM_FREQ, PWM_RESOLUTION); //初始化PWMB
 
-    ledcAttachPin(SwervePin[0], PWM_CHANNEL_A);
-    ledcAttachPin(SwervePin[1], PWM_CHANNEL_B);
+    ledcAttachPin(SwervePin[0], PWM_CHANNEL_A); //绑定对应的PWMA引脚
+    ledcAttachPin(SwervePin[1], PWM_CHANNEL_B); //绑定对应的PWMB引脚
 
     for(int i = 2; i <= 5; i++){
         if(SwervePin[i] != -1){
@@ -36,13 +36,14 @@ void setMotor(int pwmChannel, int dirPin1, int dirPin2, int speed)
     speed = constrain(speed, 0, 255); //限制speed的最大值
 
     if(speed == 0){
+        //停车
         ledcWrite(pwmChannel, 0);
         digitalWrite(dirPin1, LOW);
         digitalWrite(dirPin2, LOW);
     }else{
-        ledcWrite(pwmChannel, speed);
-        digitalWrite(dirPin1, HIGH);
-        digitalWrite(dirPin2, LOW);
+        ledcWrite(pwmChannel, speed); //将对应的通道写入速度
+        digitalWrite(dirPin1, HIGH);  //拉高PIN1
+        digitalWrite(dirPin2, LOW);   //拉高PIN2
     }
 }
 
@@ -66,22 +67,4 @@ void SwerveReverse(int speed)
 {
     setMotor(PWM_CHANNEL_A, SwervePin[3], SwervePin[2], speed);
     setMotor(PWM_CHANNEL_A, SwervePin[5], SwervePin[4], speed);
-}
-void handleLostState()
-{
-    int prev_s0 = (lastState >> 3) & 1;
-    int prev_s1 = (lastState >> 2) & 1;
-    int prev_s2 = (lastState >> 1) & 1;
-    int prev_s3 = lastState & 1;
-
-    int leftSum = prev_s0 + prev_s1;
-    int rightSum = prev_s2 + prev_s3;
-
-    if(leftSum > rightSum){
-        SwerveLeftTurn(255);
-    }else if(leftSum < rightSum){
-        SwerveRightTurn(255);
-    }else{
-        SwerveLeftTurn(150);
-    }
 }

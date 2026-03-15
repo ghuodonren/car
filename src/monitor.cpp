@@ -10,7 +10,7 @@ int MonitorValue[4]={0,0,0,0};
 void MonitorPinInit()
 {
     for(int i = 0; i < 4; i++){
-        pinMode(MonitorPin[i], INPUT_PULLUP);
+        pinMode(MonitorPin[i], INPUT_PULLUP); //启动内部上拉
     }
 }
 
@@ -20,6 +20,7 @@ void MonitorPinInit()
 void MonitorSensor()
 {
     for(int i = 0; i < 4; i++){
-        MonitorValue[i] = analogRead(MonitorPin[i]);
+        int raw = digitalRead(MonitorPin[i]); //读取监控模块的高低电平
+        MonitorValue[i] = !raw;
     }
 }
