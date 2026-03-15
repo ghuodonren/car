@@ -67,3 +67,21 @@ void SwerveReverse(int speed)
     setMotor(PWM_CHANNEL_A, SwervePin[3], SwervePin[2], speed);
     setMotor(PWM_CHANNEL_A, SwervePin[5], SwervePin[4], speed);
 }
+void handleLostState()
+{
+    int prev_s0 = (lastState >> 3) & 1;
+    int prev_s1 = (lastState >> 2) & 1;
+    int prev_s2 = (lastState >> 1) & 1;
+    int prev_s3 = lastState & 1;
+
+    int leftSum = prev_s0 + prev_s1;
+    int rightSum = prev_s2 + prev_s3;
+
+    if(leftSum > rightSum){
+        SwerveLeftTurn(255);
+    }else if(leftSum < rightSum){
+        SwerveRightTurn(255);
+    }else{
+        SwerveLeftTurn(150);
+    }
+}

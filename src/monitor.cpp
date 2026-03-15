@@ -2,7 +2,7 @@
 #include "monitor.h"
 #include <esp32-hal-gpio.h>
 
-float MonitorValue[4]={0,0,0,0};
+int MonitorValue[4]={0,0,0,0};
 
 /**
  * @brief 监控模块引脚初始化
@@ -20,7 +20,6 @@ void MonitorPinInit()
 void MonitorSensor()
 {
     for(int i = 0; i < 4; i++){
-        int raw = digitalRead(MonitorPin[i]);
-        MonitorValue[i] = !raw;
+        MonitorValue[i] = analogRead(MonitorPin[i]);
     }
 }
