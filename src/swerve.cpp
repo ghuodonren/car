@@ -61,10 +61,10 @@ void SwerveLeftTurn(int speed)
 void SwerveForward(int speed)
 {
     setMotor(PWM_CHANNEL_A, SwervePin[2], SwervePin[3], speed);
-    setMotor(PWM_CHANNEL_A, SwervePin[4], SwervePin[5], speed);
+    setMotor(PWM_CHANNEL_B, SwervePin[4], SwervePin[5], speed);
 }
 void SwerveReverse(int speed)
 {
     setMotor(PWM_CHANNEL_A, SwervePin[3], SwervePin[2], speed);
-    setMotor(PWM_CHANNEL_A, SwervePin[5], SwervePin[4], speed);
+    setMotor(PWM_CHANNEL_B, SwervePin[5], SwervePin[4], speed);
 }
