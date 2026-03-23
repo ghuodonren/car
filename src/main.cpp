@@ -48,9 +48,9 @@ void loop()
     if(state == 6){
         SwerveDifferential(255, 255); //0110,小车保持直行
     }else if(state == 2 || state == 3){
-        SwerveDifferential(240, 120); //0010、0011，小车小幅度右转
+        SwerveDifferential(255, 160); //0010、0011，小车小幅度右转
     }else if(state == 4 || state == 12){
-        SwerveDifferential(120, 240); //0100、1100，小车小幅度左转
+        SwerveDifferential(160, 255); //0100、1100，小车小幅度左转
     }else if(state == 1){
         SwerveRightTurn(200); //0001，小车严重偏右，大幅度右转
     }else if(state == 8){
@@ -65,18 +65,18 @@ void loop()
         int rightSum = s2 + s3;
 
         if(leftSum > rightSum){ //小车偏左
-            SwerveLeftTurn(150);
+            SwerveDifferential(100, 200);
         }else if(rightSum > leftSum){ //小车偏右
-            SwerveRightTurn(150);
+            SwerveDifferential(200, 100);
         }else{ 
             //小车遇到复杂情况的调整
             int prevLeft = ((lastState >> 3) & 1) + ((lastState >> 2) & 1); //左边总计
             int prevRight = ((lastState >> 1) & 1) + (lastState & 1); //右边总计
 
             if(prevLeft > prevRight){
-                SwerveLeftTurn(150);
+                SwerveDifferential(80, 255);
             }else if(prevRight > prevLeft){
-                SwerveRightTurn(150);
+                SwerveDifferential(255, 80);
             }else{
                 SwerveDifferential(200, 200);
             }
@@ -88,5 +88,5 @@ void loop()
     }
 
     delay(10); //高频扫描
-    
+
 }
