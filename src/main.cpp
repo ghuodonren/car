@@ -57,8 +57,8 @@ void loop()
         SwerveLeftTurn(240); //1000，小车严重偏左，大幅度左转
     }else if(state == 0){
         handleLostState(); //0000，小车偏移轨道，使用补救函数
-    }else if(state == 15){
-        SwerveForward(160); //1111，小车可能遇到十字路口，保持直行
+    }else if(state == 15 || state == 14 || state == 7 || state == 11 || state == 13){
+        SwerveForward(200); //1111、1110、0111、1011、1101，小车可能遇到十字路口，保持直行
     }else{
         //额外情况所作出的调整
         int leftSum = s0 + s1;
@@ -87,5 +87,5 @@ void loop()
         lastState = state;
     }
 
-    delay(50);
+    delay(10);
 }
