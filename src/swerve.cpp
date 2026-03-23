@@ -68,3 +68,14 @@ void SwerveReverse(int speed)
     setMotor(PWM_CHANNEL_A, SwervePin[3], SwervePin[2], speed);
     setMotor(PWM_CHANNEL_B, SwervePin[5], SwervePin[4], speed);
 }
+void SwerveDifferential(int leftSpeed, int rightSpeed)
+{
+    // 限制速度在合法范围内
+    leftSpeed = constrain(leftSpeed, 0, 255);
+    rightSpeed = constrain(rightSpeed, 0, 255);
+    
+    // 左轮 (A通道) 前进
+    setMotor(PWM_CHANNEL_A, SwervePin[2], SwervePin[3], leftSpeed);
+    // 右轮 (B通道) 前进
+    setMotor(PWM_CHANNEL_B, SwervePin[4], SwervePin[5], rightSpeed);
+}

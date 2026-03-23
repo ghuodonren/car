@@ -46,19 +46,19 @@ void loop()
     int state = (s0 << 3) + (s1 << 2) + (s2 << 1) + s3; //记忆四个红外模块状态值
 
     if(state == 6){
-        SwerveForward(240); //0110,小车保持直行
+        SwerveDifferential(255, 255); //0110,小车保持直行
     }else if(state == 2 || state == 3){
-        SwerveRightTurn(160); //0010、0011，小车小幅度右转
+        SwerveDifferential(240, 120); //0010、0011，小车小幅度右转
     }else if(state == 4 || state == 12){
-        SwerveLeftTurn(160); //0100、1100，小车小幅度左转
+        SwerveDifferential(120, 240); //0100、1100，小车小幅度左转
     }else if(state == 1){
-        SwerveRightTurn(240); //0001，小车严重偏右，大幅度右转
+        SwerveRightTurn(200); //0001，小车严重偏右，大幅度右转
     }else if(state == 8){
-        SwerveLeftTurn(240); //1000，小车严重偏左，大幅度左转
+        SwerveLeftTurn(200); //1000，小车严重偏左，大幅度左转
     }else if(state == 0){
         handleLostState(); //0000，小车偏移轨道，使用补救函数
     }else if(state == 15 || state == 14 || state == 7 || state == 11 || state == 13){
-        SwerveForward(200); //1111、1110、0111、1011、1101，小车可能遇到十字路口，保持直行
+        SwerveDifferential(255, 255); //1111、1110、0111、1011、1101，小车可能遇到十字路口，保持直行
     }else{
         //额外情况所作出的调整
         int leftSum = s0 + s1;
@@ -78,7 +78,7 @@ void loop()
             }else if(prevRight > prevLeft){
                 SwerveRightTurn(150);
             }else{
-                SwerveForward(160);
+                SwerveDifferential(200, 200);
             }
         }
     }
@@ -87,5 +87,6 @@ void loop()
         lastState = state;
     }
 
-    delay(10);
+    delay(10); //高频扫描
+    
 }
